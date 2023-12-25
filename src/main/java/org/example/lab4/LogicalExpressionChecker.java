@@ -1,4 +1,4 @@
-package org.example.lab2;
+package org.example.lab4;
 
 public class LogicalExpressionChecker {
     public static void main(String[] args) {
