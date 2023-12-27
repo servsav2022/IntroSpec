@@ -1,5 +1,4 @@
 package org.example.lab3;
-
 public class CodsAddsSubs {
     public static void main(String[] args) {
         int num1 = -13;
