@@ -7,18 +7,15 @@ public class CodsAddsSubs {
         System.out.printf("Двоичное представление для числа %s: %s", num1, convertToBinary(num1) + "\n");
         System.out.printf("Двоичное представление для числа   %s: %s", num2, convertToBinary(num2) + "\n");
 
-
         int addResult = addIntegers(num1, num2);
         System.out.println("Результат сложения:  " + convertToBinary(addResult));
 
         int subResult = subIntegers(num1, num2);
         System.out.println("Результат вычитания: " + convertToBinary(subResult));
     }
-
     public static int addIntegers(int num1, int num2) {
         return num1 + num2;
     }
-
     public static int subIntegers(int num1, int num2) {
         return num1 - num2;
     }
