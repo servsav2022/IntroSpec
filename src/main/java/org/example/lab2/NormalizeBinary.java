@@ -6,39 +6,45 @@ public class NormalizeBinary {
         double decimalNumber = 98.71;
         int precision = 5;
 
-        String binaryNumber = convertDecimalToBinary(decimalNumber, precision);
-        String normalizedBinaryNumber = normalizeBinary(binaryNumber);
-
-        System.out.println("Original binary: " + binaryNumber);
-        System.out.println("Normalized binary: " + normalizedBinaryNumber);
+        String [] normalizedBinaryNumber = normalizeBinary(decimalNumber,precision);
+        System.out.println("Исходное число: "+ decimalNumber);
+        System.out.println("После перевода в двоичное: " + convertDecimalToBinary(decimalNumber, precision));
+        System.out.println("Знак числа: "+normalizedBinaryNumber[0]);
+        System.out.println("Мантисса: " + normalizedBinaryNumber[1]);
+        System.out.println("Знак порядка: "+ normalizedBinaryNumber[2]);
+        System.out.println("Порядок: "+ normalizedBinaryNumber[3]);
     }
 
-    public static String normalizeBinary(String binaryNumber) {
+    public static String [] normalizeBinary(double decimalNumber, int precision) {
+        String binaryNumber = convertDecimalToBinary(decimalNumber, precision);
         int dotIndex = binaryNumber.indexOf('.');
         if (dotIndex == -1) {
             // Если нет дробной части, то число уже нормализовано
-            return binaryNumber;
+            return new String[]{binaryNumber};
         }
+        String Sign="0";
+        String OrderSign="0";
+        if (decimalNumber<0){Sign="1";}
 
+
+        int exponent = dotIndex - binaryNumber.indexOf('1') - 1;
+        // Преобразование экспоненты в двоичный формат
+        String binaryExponent = Integer.toBinaryString(exponent);
+        if ("0".equals(binaryNumber.substring(0,1))) {
+            OrderSign = "1";
+            exponent = dotIndex + binaryNumber.indexOf('1');
+            binaryExponent = Integer.toBinaryString(exponent);
+        }
         // Выделение мантиссы и экспоненты
         String mantissa = binaryNumber.replace(".", "");
-        int exponent = dotIndex - binaryNumber.indexOf('1') - 1;
-
-        // Приведение экспоненты к biased форме (добавление bias)
-        int biasedExponent = exponent + 127;
-
-        // Преобразование biased экспоненты в двоичный формат
-        String binaryExponent = Integer.toBinaryString(biasedExponent);
-
-        // Формирование нормализованного числа в формате IEEE 754
-        String normalizedBinaryNumber = mantissa.substring(1) + binaryExponent;
-
-        // Добавление нулей в конец, чтобы дополнить до 32 бит
-        while (normalizedBinaryNumber.length() < 32) {
-            normalizedBinaryNumber += "0";
+        mantissa=mantissa.substring(0,exponent+2);
+        StringBuilder order = new StringBuilder();
+            order.append(binaryExponent);
+        for (int i = 0; i < 4-order.length(); i++) {
+            order.insert(0,'0');
         }
 
-        return normalizedBinaryNumber;
+        return new String[] {Sign,mantissa,OrderSign,order.toString()};
     }
 
 }
