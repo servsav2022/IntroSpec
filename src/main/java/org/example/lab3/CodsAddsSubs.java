@@ -22,7 +22,6 @@ public class CodsAddsSubs {
     public static int subIntegers(int num1, int num2) {
         return num1 - num2;
     }
-
     public static String convertToBinary(int num) {
         String binaryStr = Integer.toBinaryString(num);
         if (num >= 0 && binaryStr.length() < 32) { // если не хватает нулей добавляем
