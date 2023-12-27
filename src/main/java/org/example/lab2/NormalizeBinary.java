@@ -14,7 +14,6 @@ public class NormalizeBinary {
         System.out.println("Знак порядка: "+ normalizedBinaryNumber[2]);
         System.out.println("Порядок: "+ normalizedBinaryNumber[3]);
     }
-
     public static String [] normalizeBinary(double decimalNumber, int precision) {
         String binaryNumber = convertDecimalToBinary(decimalNumber, precision);
         int dotIndex = binaryNumber.indexOf('.');
@@ -24,8 +23,8 @@ public class NormalizeBinary {
         }
         String Sign="0";
         String OrderSign="0";
+        StringBuilder order = new StringBuilder();
         if (decimalNumber<0){Sign="1";}
-
 
         int exponent = dotIndex - binaryNumber.indexOf('1') - 1;
         // Преобразование экспоненты в двоичный формат
@@ -34,17 +33,17 @@ public class NormalizeBinary {
             OrderSign = "1";
             exponent = dotIndex + binaryNumber.indexOf('1');
             binaryExponent = Integer.toBinaryString(exponent);
+            for (int i = 0; i < 4-order.length(); i++) {
+                order.insert(0,'0');
+            }
         }
         // Выделение мантиссы и экспоненты
         String mantissa = binaryNumber.replace(".", "");
         mantissa=mantissa.substring(0,exponent+2);
-        StringBuilder order = new StringBuilder();
-            order.append(binaryExponent);
+        order.append(binaryExponent);
         for (int i = 0; i < 4-order.length(); i++) {
             order.insert(0,'0');
         }
-
         return new String[] {Sign,mantissa,OrderSign,order.toString()};
     }
-
 }
