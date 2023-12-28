@@ -26,7 +26,7 @@ public class NormalizeBinary {
         StringBuilder order = new StringBuilder();
         if (decimalNumber<0){Sign="1";}
 
-        int exponent = dotIndex - binaryNumber.indexOf('1') - 1;
+        int exponent = dotIndex - binaryNumber.indexOf('1') ;
         // Преобразование экспоненты в двоичный формат
         String binaryExponent = Integer.toBinaryString(exponent);
         if ("0".equals(binaryNumber.substring(0,1))) {
@@ -39,7 +39,7 @@ public class NormalizeBinary {
         }
         // Выделение мантиссы и экспоненты
         String mantissa = binaryNumber.replace(".", "");
-        mantissa=mantissa.substring(0,exponent+2);
+        mantissa=mantissa.substring(0,exponent+1);
         order.append(binaryExponent);
         for (int i = 0; i < 4-order.length(); i++) {
             order.insert(0,'0');

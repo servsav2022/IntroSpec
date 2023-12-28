@@ -9,7 +9,7 @@ public class LogicalExpressionChecker {
                 boolean originalExpression = (x1 * x2 + x2 + x1 * (x1 + x2)) != 0;
 
                 // Упрощенное логическое выражение
-                boolean simplifiedExpression = (x1 * x2 + x2 + x1) != 0;
+                boolean simplifiedExpression = (x2+x1) != 0;
 
                 // Вывод результатов для текущих значений переменных
                 System.out.println("x1=" + x1 + ", x2=" + x2 +
